@@ -8,7 +8,7 @@
 2. 转逆波兰表达式: 将中缀表达式转后缀表达式，`['1', '2', '3', '4', '+', '*', '+']`
 3. 逆波兰表达式求值: `15`
 
-逆波兰表达式转二叉树
+逆波兰表达式转二叉树: 条件表达式中，二叉树的求值能提前返回，能比逆波兰表达式计算量更少
 
 ## 语法分析
 
@@ -169,4 +169,15 @@ def to_binary_tree(polish):
         else:
             stack.append(Node(token))
     return stack[-1]
+```
+
+## 二叉树求值
+
+递归求值即可
+
+``` py
+def calculate_binary_tree(node):
+    if not is_operator(node.val):
+        return int(node.val)
+    return op_handler[node.val](calculate_binary_tree(node.left), calculate_binary_tree(node.right))
 ```

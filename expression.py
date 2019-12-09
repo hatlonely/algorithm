@@ -147,6 +147,12 @@ def to_binary_tree(polish):
     return stack[-1]
 
 
+def calculate_binary_tree(node):
+    if not is_operator(node.val):
+        return int(node.val)
+    return op_handler[node.val](calculate_binary_tree(node.left), calculate_binary_tree(node.right))
+
+
 def main():
     # expr = "1+2*(3+4)"
     expr = "1 + 212 + (-2 + 33) * 2 + (32 * (46 - 45))"
@@ -154,6 +160,7 @@ def main():
     print(to_polish(tokenizer(expr)))
     print(calculate(to_polish(tokenizer(expr))))
     print(to_binary_tree(to_polish(tokenizer(expr))))
+    print(calculate_binary_tree(to_binary_tree(to_polish(tokenizer(expr)))))
 
 
 if __name__ == '__main__':
